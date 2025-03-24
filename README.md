@@ -1,8 +1,11 @@
-# narrative-core
+# Narrative-Core
 Our Submission for KukuFM project K. 
 
-Proposed Initial Repository Structure (Generated Using Claude-AI):
 
+
+## NarrativeCore Project Structure (Generated Using Claude-AI):
+
+```
 narrative-core/
 ├── .github/
 │   └── workflows/
@@ -70,10 +73,6 @@ narrative-core/
 ├── models/
 │   ├── embeddings/                     # Embedding model weights
 │   └── fine_tuned/                     # Fine-tuned LLM checkpoints
-├── data/
-│   ├── cultural_patterns/              # Cultural storytelling patterns
-│   ├── genre_templates/                # Genre-specific templates
-│   └── sample_stories/                 # Example stories for testing
 ├── notebooks/
 │   ├── research/                       # Experimental research notebooks
 │   ├── prototyping/                    # Component prototyping
@@ -91,3 +90,4 @@ narrative-core/
 ├── CONTRIBUTING.md                     # Contribution guidelines
 ├── LICENSE                             # License information
 └── Dockerfile                          # Container definition
+```
