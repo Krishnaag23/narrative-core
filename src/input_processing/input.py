@@ -26,4 +26,3 @@ concept in another dictionary format'''
 '''
 
 
-    
