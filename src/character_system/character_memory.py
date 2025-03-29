@@ -17,7 +17,7 @@ class MemoryRecord(BaseModel):
     """Represents a single memory entry for a character."""
     memory_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     character_id: str
-    timestamp: datetime = Field(default_factory=datetime.datetime.now())
+    timestamp: datetime = Field(default_factory=datetime.now())
     event_description: str 
     summary: str # LLM-generated summary of the event
     importance_score: float = Field(default=0.5, ge=0.0, le=1.0) 
@@ -80,7 +80,7 @@ class CharacterMemory:
              return
 
         summary = await self._summarize_event(event_description)
-        now = datetime.datetime.now()
+        now = datetime.now()
 
         memory = MemoryRecord(
             character_id=character_id,
@@ -136,7 +136,7 @@ class CharacterMemory:
             )
 
             processed_memories = []
-            now = datetime.datetime.now()
+            now = datetime.now()
 
             # Chroma returns lists of lists, one inner list per query text. We only have one query text.
             ids = results.get('ids', [[]])[0]
