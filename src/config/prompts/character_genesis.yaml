@@ -1,0 +1,42 @@
+
+character_genesis_expand: |
+  Expand the following basic character concept into a richer profile for a multi-episode narrative. Be creative and consistent.
+
+  Basic Input:
+  - Name: {name}
+  - Role: {role}
+  - Description: {description}
+  - Initial Goals: {goals_str}
+  - Initial Traits: {traits_str}
+  - Initial Relationships Notes: {relationships_notes}
+  {story_context_str}
+
+  Generate the following details, keeping them consistent with the input and context. Provide concise lists or descriptions:
+  1.  Backstory: (A paragraph summarizing key past events shaping the character)
+  2.  Core Traits: (List 5-7 defining personality traits, expanding on the initial list)
+  3.  Motivations: (List 3-5 primary driving forces or desires)
+  4.  Flaws: (List 2-4 significant weaknesses or shortcomings)
+  5.  Strengths: (List 2-4 key abilities or positive attributes)
+  6.  Long-Term Goals: (Refine or expand the initial goals into 2-3 major objectives)
+  7.  Physical Description: (A brief paragraph describing appearance)
+  8.  Mannerisms: (List 2-3 distinctive habits or gestures)
+  9.  Voice Description: (Describe tone, pitch, accent, common phrases/patterns)
+
+  Output Format (Use these exact headings and format):
+  Backstory: [Generated Backstory]
+  Core Traits: [Trait 1, Trait 2, ...]
+  Motivations: [Motivation 1, Motivation 2, ...]
+  Flaws: [Flaw 1, Flaw 2, ...]
+  Strengths: [Strength 1, Strength 2, ...]
+  Long-Term Goals: [Goal 1, Goal 2, ...]
+  Physical Description: [Generated Description]
+  Mannerisms: [Mannerism 1, Mannerism 2, ...]
+  Voice Description: [Generated Voice Description]
+
+character_genesis_missing_info: |
+  The character '{name}' is missing some key generated information ({missing_fields}). Please generate plausible details for these based on their existing profile:
+  Role: {role}
+  Description: {description}
+  Existing Traits: {existing_traits}
+
+  Generate details only for: {missing_fields_list}
