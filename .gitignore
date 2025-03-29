@@ -1,2 +1,4 @@
 venv/
 .env
+db/
+.chroma_db_persistence
