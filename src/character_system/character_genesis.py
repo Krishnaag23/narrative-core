@@ -14,7 +14,7 @@ from ..utils.llm_utils import LLMwrapper
 logger = logging.getLogger(__name__)
 
 class CharacterGenesis:
-    def __init__(self, llm_wrapper: LLMwrapper): 
+    def __init__(self, llm_wrapper = LLMwrapper): 
         """
         Initializes the Character Genesis module.
 
