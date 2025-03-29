@@ -9,7 +9,8 @@ from typing import List, Optional, Any, Dict
 from pydantic import ValidationError
 
 from .character_profile import CharacterProfile, CharacterInput, CharacterState
-from ..utils.llm_utils import LLMwrapper
+from ..utils import LLMwrapper
+from ..utils import PromptManager
 
 logger = logging.getLogger(__name__)
 
@@ -36,42 +37,9 @@ class CharacterGenesis:
              time_period = story_context.get('initial_setting', {}).get('time_period', 'Unknown time')
              story_ctx_str = f"\nStory Context:\n- Genre: {genre}\n- Setting: {setting_summary} ({time_period})"
 
-
-        prompt = f"""
-        Expand the following basic character concept into a richer profile for a multi-episode narrative. Be creative and consistent.
-
-        Basic Input:
-        - Name: {initial_input.name}
-        - Role: {initial_input.role}
-        - Description: {initial_input.description}
-        - Initial Goals: {', '.join(initial_input.goals) if initial_input.goals else 'None specified'}
-        - Initial Traits: {', '.join(initial_input.traits) if initial_input.traits else 'None specified'}
-        - Initial Relationships Notes: {initial_input.initial_relationships or 'None specified'}
-        {story_ctx_str}
-
-        Generate the following details, keeping them consistent with the input and context. Provide concise lists or descriptions:
-        1.  Backstory: (A paragraph summarizing key past events shaping the character)
-        2.  Core Traits: (List 5-7 defining personality traits, expanding on the initial list)
-        3.  Motivations: (List 3-5 primary driving forces or desires)
-        4.  Flaws: (List 2-4 significant weaknesses or shortcomings)
-        5.  Strengths: (List 2-4 key abilities or positive attributes)
-        6.  Long-Term Goals: (Refine or expand the initial goals into 2-3 major objectives)
-        7.  Physical Description: (A brief paragraph describing appearance)
-        8.  Mannerisms: (List 2-3 distinctive habits or gestures)
-        9.  Voice Description: (Describe tone, pitch, accent, common phrases/patterns)
-
-        Output Format (Use these exact headings):
-        Backstory: [Generated Backstory]
-        Core Traits: [Trait 1, Trait 2, ...]
-        Motivations: [Motivation 1, Motivation 2, ...]
-        Flaws: [Flaw 1, Flaw 2, ...]
-        Strengths: [Strength 1, Strength 2, ...]
-        Long-Term Goals: [Goal 1, Goal 2, ...]
-        Physical Description: [Generated Description]
-        Mannerisms: [Mannerism 1, Mannerism 2, ...]
-        Voice Description: [Generated Voice Description]
-        """
-
+        goals_str = ",".join(initial_input.goals) if initial_input.goals else "None Specified"
+        traits_str = ",".join(initial_input.traits) if initial_input.traits else "None Specified"
+        prompt = PromptManager.get_prompt("character_genesis_expand",initial_input.name,initial_input.role,initial_input.description,goals_str,traits_str,initial_input.initial_relationships,story_ctx_str)
         try:
             logger.info(f"Generating detailed profile for {initial_input.name} using LLM...")
             response = await self.llm_wrapper.query_llm_async(prompt, max_tokens=800) # Allow ample tokens
@@ -121,6 +89,7 @@ class CharacterGenesis:
 
 
             # Fill missing keys with defaults if LLM didn't provide them
+            #TODO : use the character_genesis_missing_info prompt to fill these values as well.
             for heading, key in key_map.items():
                  if key not in generated_details:
                      logger.warning(f"LLM did not generate '{heading}' for {initial_input.name}. Using default.")
