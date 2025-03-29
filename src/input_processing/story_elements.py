@@ -57,7 +57,7 @@ class CharacterInput(BaseModel):
     description: str = Field(..., description="A brief description of the character's appearance, personality, and background.")
     goals: List[str] = Field(default_factory=list, description="The character's main motivations or objectives.")
     traits: List[str] = Field(default_factory=list, description="Key personality traits (e.g., brave, cynical, witty).")
-    # Relationships can be better defined later, but capture initial thoughts
+    # Relationships defined better in character_system/relationship_manager
     initial_relationships: Optional[str] = Field(None, description="Brief notes on initial relationships with other characters.")
 
 class SettingInput(BaseModel):
