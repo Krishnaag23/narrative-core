@@ -12,13 +12,13 @@ logger.info("Initializing NarrativeCore Utilities Module...")
 
 # Expose key components for easy import
 from .config import settings
-from .llm_utils import LLMUtils
+from .llm_utils import LLMwrapper
 from .vector_store_utils import VectorStoreInterface, QueryResult, GetResult, Metadata
 from .prompt_manager import PromptManager
 
 __all__ = [
     "settings",
-    "LLMUtils",
+    "LLMwrapper",
     "VectorStoreInterface",
     "PromptManager",
     "QueryResult",

@@ -13,7 +13,7 @@ from .config import settings
 
 logger = logging.getLogger(__name__)
 
-class LLMUtils:
+class LLMwrapper:
     _sync_client: Optional[OpenAI] = None
     _async_client: Optional[AsyncOpenAI] = None
 
