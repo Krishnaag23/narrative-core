@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict, List,Any
 from transformers import pipeline
 
 class ConceptAnalyzer:
@@ -9,7 +9,7 @@ class ConceptAnalyzer:
         self.theme_classifier = pipeline("zero-shot-classification")
 
         
-    def analyze_concept(self, story_input: Dict[str, any]) -> Dict[str, any]:
+    def analyze_concept(self, story_input: Dict[str, Any]) -> Dict[str, Any]:
         """
         Main method to analyze the story concept and extract key elements
         
@@ -28,7 +28,7 @@ class ConceptAnalyzer:
         }
         return analyzed_concept
 
-    def _analyze_story_structure(self, responses: Dict[str, any]) -> Dict[str, any]:
+    def _analyze_story_structure(self, responses: Dict[str, Any]) -> Dict[str, Any]:
         """Analyze and structure the basic story elements"""
         return {
             #TODO: Implement genre-specific requirements based on the genre input in genre_classifier.
@@ -43,7 +43,7 @@ class ConceptAnalyzer:
             "pacing_guidelines": self._determine_pacing(responses)
         }
 
-    def _analyze_characters(self, character_data: List[Dict[str, any]]) -> Dict[str, any]:
+    def _analyze_characters(self, character_data: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Analyze character relationships and development opportunities"""
         return {
 
@@ -59,7 +59,7 @@ class ConceptAnalyzer:
             "development_points": self._identify_development_points(character_data)
         }
 
-    def _analyze_themes(self, theme_data: Dict[str, any]) -> Dict[str, any]:
+    def _analyze_themes(self, theme_data: Dict[str, Any]) -> Dict[str, Any]:
         """Analyze and structure thematic elements"""
         return {
 
@@ -74,7 +74,7 @@ class ConceptAnalyzer:
             "thematic_progression": self._plan_thematic_progression(theme_data)
         }
 
-    def _generate_narrative_flow(self, responses: Dict[str, any]) -> Dict[str, any]:
+    def _generate_narrative_flow(self, responses: Dict[str, Any]) -> Dict[str, Any]:
         """Generate a structured narrative flow"""
 
         #TODO: Create episode beats for narrative flow.
