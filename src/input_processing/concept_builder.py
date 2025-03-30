@@ -33,15 +33,15 @@ class ConceptBuilder:
         self.cultural_detector = CulturalContextDetector(vector_store=None)
         logger.info("ConceptBuilder initialized with analysis components.")
 
-    def build_concept_from_cli(self) -> Optional[StoryConcept]:
+    async def build_concept_from_cli(self) -> Optional[StoryConcept]:
         """
         Runs the full input processing pipeline starting with the CLI questionnaire.
 
         Returns:
             A validated StoryConcept object, or None if input is cancelled or invalid.
         """
-        # 1. Gather Raw Input (potentially using genre suggestions later)
-        raw_input = self.questionnaire.gather_input()
+        # Gather Raw Input (potentially using genre suggestions later)
+        raw_input = await self.questionnaire.gather_input()
         if not raw_input:
             logger.warning("Input gathering cancelled or failed.")
             return None

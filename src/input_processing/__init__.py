@@ -14,7 +14,7 @@ from typing import Optional
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-def process_user_input_cli() -> Optional[StoryConcept]:
+async def process_user_input_cli() -> Optional[StoryConcept]:
     """
     High-level function to run the CLI-based input processing pipeline.
 
