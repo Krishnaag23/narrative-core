@@ -15,10 +15,12 @@ from .config import settings
 from .llm_utils import LLMwrapper
 from .vector_store_utils import VectorStoreInterface, QueryResult, GetResult, Metadata
 from .prompt_manager import PromptManager
+from .graph_database import GraphDB
 
 __all__ = [
     "settings",
     "LLMwrapper",
+    "GraphDB",
     "VectorStoreInterface",
     "PromptManager",
     "QueryResult",
