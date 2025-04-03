@@ -1,0 +1,22 @@
+#TODO: This is just a template. Need to improve this.
+validate_cultural_representation: |
+  Context:
+  - Story Genre: {genre}
+  - Target Audience: {audience}
+  - Detected Cultural Keywords/Themes: {cultural_keywords}
+  - Relevant Story Snippet (from Episode {episode_number}):
+  "{snippet}"
+
+  Task: Review the story snippet considering the detected cultural context ({cultural_keywords}). Does the representation seem respectful, authentic, and appropriate for the target audience and genre? Are there potential stereotypes or misrepresentations?
+
+  Respond with "APPROPRIATE" if it seems fine, or provide specific concerns starting with "CONCERN:".
+
+check_sensitivity_handling: |
+  Context:
+  - A sensitivity flag was raised for: {sensitivity_topic}
+  - Relevant Story Snippet (from Episode {episode_number}):
+  "{snippet}"
+
+  Task: This snippet relates to a potentially sensitive topic ({sensitivity_topic}). Assess how it's handled. Is it done respectfully, or could it be potentially harmful, offensive, or gratuitous?
+
+  Respond with "HANDLED_RESPECTFULLY" if appropriate, or detail the issue starting with "SENSITIVITY_ISSUE:".

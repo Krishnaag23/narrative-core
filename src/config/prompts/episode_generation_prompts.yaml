@@ -1,0 +1,50 @@
+construct_scene: |
+  Task: Construct a detailed scene based on the provided outline and context. Include setting descriptions, character actions, and potential dialogue directions or key lines. Ensure the scene fulfills its objective and maintains consistency with character profiles and the overall tone.
+
+  Episode Number: {episode_number}
+  Scene Number: {scene_number}
+  Scene Objective: {scene_objective}
+  Assigned Plot Points/Events for this Scene:
+  {plot_points}
+
+  Characters Present:
+  {character_profiles_summary} # Concise summaries of characters in the scene (Name, Role, Mood, Goal)
+
+  Previous Scene Summary (if available): {previous_scene_summary}
+  Overall Episode Summary (Context): {episode_summary}
+  Desired Tone: {tone}
+
+  Generate a scene description including:
+  1. Setting Details: Vivid description of the location and atmosphere.
+  2. Character Entrances/Positions: How characters are situated.
+  3. Key Actions: Describe the significant actions characters take.
+  4. Dialogue Snippets/Direction: Include crucial lines or guide the conversation's flow and purpose. Indicate emotional tone.
+  5. Pacing Notes: Suggest if the scene should be fast, slow, tense, etc.
+
+  Scene Construction:
+
+generate_dialogue_for_scene_element: |
+  You are an expert scriptwriter continuing a scene. Write the next line of dialogue for the specified character, ensuring it's consistent with their profile, the scene context, and recent conversation.
+
+  Character to Speak: {character_name}
+
+  Character Profile:
+  {character_profile_summary} # Core traits, motivations, current mood/goal, voice description
+
+  Scene Context:
+  {scene_description} # Setting, current action, mood
+
+  Recent Dialogue History (last 3-5 lines):
+  {recent_dialogue}
+
+  Scene Objective for {character_name}: {character_scene_objective}
+
+  Instructions:
+  - Write ONLY the dialogue for {character_name}.
+  - Reflect their personality, voice, and current emotional state.
+  - Advance the scene or reveal character.
+  - Keep it natural and concise (usually 1-3 sentences).
+  - Do NOT include the character's name prefix (e.g., "Name: ").
+  - Do NOT include actions or descriptions.
+
+  {character_name}'s next line:

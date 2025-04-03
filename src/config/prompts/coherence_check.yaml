@@ -1,0 +1,35 @@
+#TODO: This is just a template need to improve this.
+check_plot_logic: |
+  Context:
+  - Story Genre: {genre}
+  - Previous Episode Summary: {previous_summary}
+  - Current Episode Summary: {current_episode_summary}
+
+  Task: Analyze the logical flow between the previous episode summary and the current one. Does the current episode follow plausibly from the previous one, considering the genre? Are there any major unexplained jumps or contradictions?
+
+  Respond with "LOGICAL" if the flow is coherent, or provide a brief explanation of the incoherence, starting with "INCOHERENT:".
+
+check_character_consistency: |
+  Character Profile:
+  - Name: {character_name}
+  - Role: {character_role}
+  - Core Traits: {character_traits}
+  - Motivations: {character_motivations}
+  - Current State (Mood/Goal): {character_state}
+
+  Dialogue/Action Snippet from Episode {episode_number}:
+  "{snippet}"
+
+  Task: Does this dialogue or action seem consistent with the character's profile (traits, motivations, current state)? Consider their established personality and goals.
+
+  Respond with "CONSISTENT" if it aligns, or provide a brief explanation of the inconsistency, starting with "INCONSISTENT:".
+
+check_plot_resolution: |
+  Overall Story Logline/Goal: {story_logline}
+  Key Plot Point Introduced Earlier: "{plot_point_description}"
+  Relevant Episode Summaries:
+  {episode_summaries}
+
+  Task: Based on the provided episode summaries, has the key plot point "{plot_point_description}" been adequately addressed or resolved?
+
+  Respond with "ADDRESSED" if it seems resolved or progressed appropriately, "PARTIALLY_ADDRESSED" if progress is made but not complete, or "UNADDRESSED" if it seems ignored or forgotten. Provide a brief reasoning if not fully addressed.

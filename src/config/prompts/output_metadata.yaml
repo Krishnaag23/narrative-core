@@ -1,0 +1,34 @@
+#TODO: Again this is a template. need to improve
+generate_episode_summary: |
+  Task: Summarize the following episode script content into a concise and engaging 2-3 sentence description suitable for public display (like an episode list). Focus on the main events and character developments without giving away major spoilers if possible.
+
+  Episode Script Content:
+  ---
+  {script_content}
+  ---
+
+  Episode Summary:
+
+generate_keywords: |
+  Task: Extract 5-10 relevant keywords or short phrases from the episode script content below. These keywords should reflect the main themes, characters, locations, genre elements, and plot points of this specific episode.
+
+  Story Context:
+  - Genre: {genre}
+  - Overall Themes: {overall_themes}
+
+  Episode Script Content:
+  ---
+  {script_content}
+  ---
+
+  Keywords (comma-separated):
+
+generate_content_warnings: |
+  Task: Analyze the following episode script content for potentially sensitive material that might warrant a content warning for viewers/listeners. Consider themes like violence, strong language, sexual content, substance abuse, horror elements, discrimination, etc. List any applicable warnings concisely. If none seem necessary, respond with "None".
+
+  Episode Script Content:
+  ---
+  {script_content}
+  ---
+
+  Content Warnings:

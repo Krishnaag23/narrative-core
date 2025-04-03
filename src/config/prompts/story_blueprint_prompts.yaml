@@ -1,0 +1,52 @@
+#TODO : Complete this.
+generate_plot_arc_points: |
+  Task: Generate detailed plot points for a story based on the provided concept, adhering to the specified plot structure. Flesh out each stage with 2-4 key events, character decisions, or revelations that drive the narrative forward. Ensure logical progression between stages.
+
+  Story Concept:
+  - Title Suggestion: {title_suggestion}
+  - Logline: {logline}
+  - Genre: {genre}
+  - Target Audience: {audience}
+  - Primary Conflict: {conflict}
+  - Key Themes: {themes}
+  - Initial Characters: {character_summaries} # List summaries: "Name (Role): Description"
+  - Setting Summary: {setting_summary}
+  - Cultural Context Notes: {cultural_notes}
+
+  Plot Structure Template ({structure_name}):
+  {structure_stages} # List stages: "Stage Name: Description"
+
+  Desired Output Format (JSON):
+  {{
+    "title": "{title_suggestion or 'Generated Title'}",
+    "logline": "{logline or 'Generated Logline'}",
+    "genre": "{genre}",
+    "plot_arc": [
+      {{
+        "stage_name": "Stage 1 Name",
+        "stage_summary": "Brief LLM-generated summary of this stage's purpose.",
+        "plot_points": [
+          "Detailed plot point 1 for Stage 1.",
+          "Detailed plot point 2 for Stage 1.",
+          "..."
+        ],
+        "key_character_moments": [ # Character development notes for this stage
+             "Character Name: Develops trait X or makes decision Y."
+        ],
+         "setting_notes": [ # Specific locations or atmosphere notes for this stage
+              "Utilizes Location Z.", "Atmosphere becomes tense."
+         ]
+      }},
+      {{
+        "stage_name": "Stage 2 Name",
+        "stage_summary": "...",
+        "plot_points": ["...", "..."],
+        "key_character_moments": ["..."],
+        "setting_notes": ["..."]
+
+      }}
+      // ... for all stages in the structure
+    ]
+  }}
+
+  Generate the JSON output:

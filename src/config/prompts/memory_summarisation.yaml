@@ -1,0 +1,30 @@
+#TODO : Improve this template.
+summarize_scene_content: |
+  Task: Summarize the key actions, dialogue points, and emotional shifts of the following scene content into a concise 1-2 sentence summary suitable for long-term memory. Focus on information crucial for plot and character continuity.
+
+  Scene Content:
+  ---
+  {scene_content}
+  ---
+
+  Scene Summary:
+
+summarize_episode_for_memory: |
+  Task: Summarize the main plot advancements, character developments, and key revelations from the following episode summary/content into a 3-4 sentence summary suitable for hierarchical memory recall. Capture the core essence of the episode's contribution to the overall narrative.
+
+  Episode Content/Summary:
+  ---
+  {episode_content}
+  ---
+
+  Episode Memory Summary:
+
+summarize_multiple_episodes: |
+  Task: Synthesize the main narrative progression across the following episode summaries into a concise paragraph (4-6 sentences). Focus on the major arc(s), significant turning points, and overall trajectory of the story during this segment.
+
+  Episode Summaries:
+  ---
+  {episode_summaries_text}
+  ---
+
+  Multi-Episode Synthesis:
