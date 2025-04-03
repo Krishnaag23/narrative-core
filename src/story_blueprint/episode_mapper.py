@@ -1,9 +1,16 @@
+#TODO : Map prompts to use the config directory prompt and further optimise that.
 from typing import Dict, List, Optional, Tuple
+import logging 
+import json
+
+from ..utils import LLMwrapper, PromptManager
+
+logger = logging.getLogger(__name__)
 
 class EpisodeMapper:
     """Maps a plot arc into logical episodes."""
     
-    def __init__(self, llm_wrapper=None):
+    def __init__(self, llm_wrapper: LLMwrapper):
         """
         Initialize the EpisodeMapper.
         
