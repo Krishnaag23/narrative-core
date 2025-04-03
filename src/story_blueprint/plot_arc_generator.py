@@ -1,5 +1,11 @@
 import json
 from typing import Dict, List, Optional, Union
+import logging 
+
+from ..utils import LLMwrapper, PromptManager
+from ..input_processing import StoryConcept
+
+logger = logging.getLogger(__name__)
 
 class PlotStructure:
     """Defines common plot structures that can be used as templates."""
@@ -52,7 +58,7 @@ class PlotStructure:
 class PlotArcGenerator:
     """Generates a complete narrative structure based on input themes and concepts."""
     
-    def __init__(self, llm_wrapper=None):
+    def __init__(self, llm_wrapper: LLMwrapper):
         """
         Initialize the PlotArcGenerator.
         
@@ -60,17 +66,18 @@ class PlotArcGenerator:
             llm_wrapper: Interface for LLM interactions (optional)
         """
         self.llm_wrapper = llm_wrapper
+        self.prompt_manager = PromptManager()
         self.plot_structures = {
             "three_act": PlotStructure.THREE_ACT,
             "hero_journey": PlotStructure.HERO_JOURNEY,
             "five_act": PlotStructure.FIVE_ACT
         }
+        logger.info("PLOT ARC generator initialised")
     
-    def generate_plot_arc(self, 
-                          concept: Dict, 
+    async def generate_plot_arc(self, 
+                          story_concept:StoryConcept,
                           structure_type: str = "three_act", 
-                          genre: str = "drama",
-                          cultural_context: Optional[str] = None) -> Dict:
+                          ) -> Optional[Dict[str , any]]:
         """
         Generate a complete plot arc based on input concept and structure type.
         
@@ -83,98 +90,55 @@ class PlotArcGenerator:
         Returns:
             Dictionary containing the complete plot arc
         """
+        logger.info(f"Generating plot arc for concept: {story_concept.title_suggestion or 'Untitled'}")
         # Get the base structure
         if structure_type not in self.plot_structures:
             raise ValueError(f"Unknown structure_type: {structure_type}")
             
-        base_structure = self.plot_structures[structure_type].copy()
+        structure_template = self.plot_structures[structure_type].copy()
         
-        # If using LLM to generate plot points
-        if self.llm_wrapper:
-            # Create a prompt for the LLM
-            prompt = self._create_plot_generation_prompt(concept, base_structure, genre, cultural_context)
-            
-            # Generate plot points using LLM
-            response = self.llm_wrapper.generate(prompt)
-            
-            # Parse the response
+        structure_stages_text = "\n".join([f"- {s['name']}: {s['description']}" for s in structure_template['stages']])
+        character_summaries = [
+            f"- {c.name} ({c.role.value}): {c.description[:100]}..." 
+            for c in story_concept.initial_characters
+        ]
+
+        prompt = self.prompt_manager.get_prompt(
+            "generate_plot_arc_points",
+            title_suggestion=story_concept.title_suggestion,
+            logline=story_concept.initial_plot.logline,
+            genre=story_concept.genre_analysis.primary_genre[0],
+            audience=story_concept.target_audience.value,
+            conflict=story_concept.initial_plot.primary_conflict.value,
+            themes=", ".join(story_concept.initial_plot.potential_themes),
+            character_summaries="\n".join(character_summaries),
+            setting_summary=f"{story_concept.initial_setting.location} ({story_concept.initial_setting.time_period})",
+            cultural_notes=", ".join(story_concept.cultural_analysis.detected_keywords) or "None",
+            structure_name=structure_template['name'],
+            structure_stages=structure_stages_text
+        )
+
+        if not prompt:
+            logger.error("Failed to get 'generate_plot_arc_points' prompt.")
+            return None
+
+        try:
+            response = await self.llm.query_llm_async(prompt, max_tokens=20000, temperature=0.7)
+
+            if not response:
+                logger.error("LLM did not return a response for plot arc generation.")
+                return None
+
             try:
-                plot_arc = json.loads(response)
+                plot_arc_data = json.loads(response)
+                logger.info("Successfully parsed LLM response as JSON for plot arc.")
+                # TODO: Add validation against a Pydantic model for the plot arc structure
+                return plot_arc_data
             except json.JSONDecodeError:
-                # If response isn't valid JSON, try to extract structured data
-                plot_arc = self._extract_plot_from_text(response, base_structure)
-        else:
-            # Placeholder for non-LLM implementation
-            plot_arc = self._create_default_plot_arc(concept, base_structure, genre)
-            
-        return plot_arc
-    
-    def _create_plot_generation_prompt(self, concept, structure, genre, cultural_context):
-        """Create a prompt for the LLM to generate plot points."""
-        prompt = f"""
-        Generate a detailed plot arc for a {genre} story with the following concept:
-        
-        Title: {concept.get('title', 'Untitled')}
-        Main Theme: {concept.get('theme', 'N/A')}
-        Setting: {concept.get('setting', 'N/A')}
-        Main Character: {concept.get('protagonist', 'Unknown')}
-        
-        Use the {structure['name']} as a framework with the following stages:
-        """
-        
-        for stage in structure['stages']:
-            prompt += f"\n- {stage['name']}: {stage['description']}"
-            
-        if cultural_context:
-            prompt += f"\n\nThe story should incorporate elements from {cultural_context} culture."
-            
-        prompt += """
-        
-        Return a JSON object with each stage containing:
-        1. A summary of the events in this stage
-        2. Key plot points
-        3. Character development moments
-        4. Important settings or locations
-        
-        Format the response as valid JSON.
-        """
-        
-        return prompt
-    
-    def _extract_plot_from_text(self, text, structure):
-        """Extract structured plot data from text if JSON parsing fails."""
-        # Simple implementation - can be enhanced
-        plot_arc = {"stages": []}
-        
-        for stage in structure['stages']:
-            stage_data = {
-                "name": stage['name'],
-                "summary": f"Default summary for {stage['name']}",
-                "plot_points": [f"Default plot point for {stage['name']}"],
-                "character_development": [],
-                "settings": []
-            }
-            plot_arc["stages"].append(stage_data)
-            
-        return plot_arc
-    
-    def _create_default_plot_arc(self, concept, structure, genre):
-        """Create a default plot arc without using LLM."""
-        plot_arc = {
-            "title": concept.get('title', 'Untitled'),
-            "genre": genre,
-            "structure": structure['name'],
-            "stages": []
-        }
-        
-        for stage in structure['stages']:
-            stage_data = {
-                "name": stage['name'],
-                "summary": f"Events for {stage['name']} stage of the story",
-                "plot_points": [f"Key event in {stage['name']}", f"Another event in {stage['name']}"],
-                "character_development": [f"Character change during {stage['name']}"],
-                "settings": [f"Location during {stage['name']}"]
-            }
-            plot_arc["stages"].append(stage_data)
-            
-        return plot_arc
+                logger.warning("LLM response for plot arc was not valid JSON. Returning raw text (needs parsing).")
+                # Fallback: Return the raw text, indicating it needs parsing downstream
+                return {"raw_llm_output": response, "error": "JSON parsing failed"}
+
+        except Exception as e:
+            logger.error(f"LLM call failed during plot arc generation: {e}", exc_info=True)
+            return None 
