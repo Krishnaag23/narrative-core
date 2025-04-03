@@ -1,3 +1,5 @@
+#I don't think this is needed as IT is implemented in the character system module already. Check the methods once and use 
+# those which are already created to get rid of redundancies.
 """
 Episodic Memory System
 ======================
