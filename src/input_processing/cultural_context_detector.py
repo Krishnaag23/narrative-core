@@ -1,31 +1,31 @@
 """
 Analyzes input for specific cultural keywords, themes, or patterns
-relevant to KukuFM's audience (e.g., Indian folklore, Panchatantra).
-Currently uses keyword matching; intended to integrate RAG with a
-vector store of cultural narratives in the future.
+Integrates RAG with a vector store of cultural narratives.
 """
 import logging
 from typing import List, Optional, Dict, Any
 from pydantic import ValidationError
 
-#TODO: implement vectorstoreinterface in utils/vecto_store 
-# from ..utils.vector_store import VectorStoreInterface 
+from ..utils import VectorStoreInterface
 
 from .story_elements import CulturalAnalysis
 
 logger = logging.getLogger(__name__)
 
-class CulturalContextDetector:
-    """Detects cultural elements and suggests relevant frameworks."""
+# Define a constant for the RAG collection name
+CULTURAL_NARRATIVES_COLLECTION = "cultural_narratives"
 
-    def __init__(self, vector_store: Optional[Any] = None): # TODO: Replace Any with VectorStoreInterface 
+class CulturalContextDetector:
+    """Detects cultural elements and suggests relevant frameworks using keywords and RAG."""
+
+    def __init__(self, vector_store: Optional[VectorStoreInterface] = None):
         """
         Initializes the detector.
 
         Args:
-            vector_store: An instance of the vector store client (for future RAG).
+            vector_store: An instance of the vector store client (e.g., VectorStoreInterface).
         """
-        #TODO: expand with RAG 
+        # TODO: expand with RAG
         self.cultural_keywords = {
             "Panchatantra": ["panchatantra", "fable", "moral story", "animal tale"],
             "Mahabharata": ["mahabharata", "kurukshetra", "pandava", "kaurava", "krishna", "arjuna"],
@@ -41,15 +41,16 @@ class CulturalContextDetector:
             "Mahabharata": "Explore themes of duty (dharma), conflict, and complex family dynamics.",
             "Ramayana": "Explore themes of righteousness, loyalty, and the battle of good versus evil."
         }
-        self.vector_store = vector_store # future use
+        self.vector_store = vector_store
         if self.vector_store:
-            logger.info("Vector store provided. RAG features can be enabled later.")
+            logger.info("Vector store provided. RAG features enabled.")
+            # Ensure the collection exists (optional, depends on VectorStoreInterface implementation)
         else:
-            logger.info("No vector store provided. Using keyword matching for cultural context.")
+            logger.info("No vector store provided. Using only keyword matching for cultural context.")
 
     def analyze(self, text_inputs: List[str]) -> CulturalAnalysis:
         """
-        Analyzes combined text inputs for cultural context.
+        Analyzes combined text inputs for cultural context using keywords and RAG.
 
         Args:
             text_inputs: A list of strings containing user input
@@ -61,12 +62,14 @@ class CulturalContextDetector:
         combined_text = " ".join(filter(None, text_inputs)).lower()
         detected_keywords = []
         suggested_frameworks = []
+        rag_info = [] # Store info retrieved via RAG
         requires_sensitivity_check = False # Default
 
         if not combined_text:
             logger.warning("No text provided for cultural context analysis.")
             return CulturalAnalysis() # Return empty analysis
 
+        # --- Keyword Matching ---
         logger.info("Analyzing for cultural context keywords...")
         for framework, keywords in self.cultural_keywords.items():
             for keyword in keywords:
@@ -74,31 +77,63 @@ class CulturalContextDetector:
                     if framework not in detected_keywords:
                         detected_keywords.append(framework)
                     # Suggest framework if a primary keyword is found
-                    if framework in self.framework_suggestions and framework not in suggested_frameworks:
+                    if framework in self.framework_suggestions and self.framework_suggestions[framework] not in suggested_frameworks:
                          suggested_frameworks.append(self.framework_suggestions[framework])
                     # Flag sensitivity for certain topics (e.g., religion, mythology)
                     if framework in ["Mahabharata", "Ramayana", "Vedas/Upanishads", "Indian Mythology"]:
                          requires_sensitivity_check = True
-                    # Break inner loop once a keyword for this framework is found? Optional.
+                    break # Move to next framework once a keyword is found for this one
 
-        # --- Placeholder for RAG ---
+        # --- RAG Implementation ---
         if self.vector_store:
-            logger.info("RAG Implementation Placeholder: Querying vector store with input text.")
-            # try:
-            #     # Example: Find similar cultural narrative snippets
-            #     # relevant_docs = self.vector_store.search(combined_text, top_k=3)
-            #     # if relevant_docs:
-            #     #     detected_keywords.append("RAG_Match") # Indicate a match
-            #     #     # Process relevant_docs to potentially suggest frameworks or add keywords
-            #     #     logger.info(f"RAG found relevant documents: {relevant_docs}") # Placeholder
-            # except Exception as e:
-            #     logger.error(f"Error during RAG vector store query: {e}")
-            pass # RAG logic goes here
-        # --- End RAG Placeholder ---
+            logger.info("Performing RAG query for cultural context...")
+            try:
+                # Query the dedicated collection
+                # Assuming query returns list of results per query text, take first list
+                rag_results_list = self.vector_store.query(
+                    collection_name=CULTURAL_NARRATIVES_COLLECTION,
+                    query_texts=[combined_text],
+                    n_results=3 # Retrieve top 3 relevant cultural docs
+                )
 
-        logger.info(f"Cultural Context Analysis - Detected: {detected_keywords}, Suggested Frameworks: {len(suggested_frameworks)}, Sensitivity Check: {requires_sensitivity_check}")
+                if rag_results_list and rag_results_list[0]:
+                    rag_items = rag_results_list[0] # Results for the first query text
+                    logger.info(f"RAG query found {len(rag_items)} relevant cultural documents.")
+                    for item in rag_items:
+                        # Process RAG results - extract relevant info from metadata or document
+                        doc_summary = item.get('document', '')[:100] + "..." # Short summary
+                        metadata = item.get('metadata', {})
+                        rag_framework = metadata.get('framework') # Example metadata field
+                        rag_theme = metadata.get('theme')         # Example metadata field
+
+                        rag_info.append(f"Related Concept: {metadata.get('title', doc_summary)}") # Add source info
+
+                        # Add detected keywords/frameworks based on RAG results
+                        if rag_framework and rag_framework not in detected_keywords:
+                            detected_keywords.append(f"RAG:{rag_framework}")
+                            if rag_framework in self.framework_suggestions and self.framework_suggestions[rag_framework] not in suggested_frameworks:
+                                suggested_frameworks.append(self.framework_suggestions[rag_framework] + " (Suggested by RAG)")
+                        if rag_theme and f"RAG:{rag_theme}" not in detected_keywords:
+                             detected_keywords.append(f"RAG:{rag_theme}")
+
+                        # Flag sensitivity based on RAG results if metadata indicates it
+                        if metadata.get('is_sensitive'):
+                            requires_sensitivity_check = True
+                else:
+                    logger.info("RAG query returned no relevant cultural documents.")
+
+            except Exception as e:
+                logger.error(f"Error during RAG vector store query: {e}", exc_info=True)
+        # --- End RAG ---
+
+        logger.info(f"Cultural Context Analysis - Detected: {detected_keywords}, Suggested Frameworks: {len(suggested_frameworks)}, RAG Info Count: {len(rag_info)}, Sensitivity Check: {requires_sensitivity_check}")
 
         try:
+            # Add RAG info to suggestions or a dedicated field if needed
+            # For simplicity, adding to suggested_frameworks for now
+            if rag_info:
+                 suggested_frameworks.append(f"RAG Context Hints: {'; '.join(rag_info)}")
+
             return CulturalAnalysis(
                 detected_keywords=list(set(detected_keywords)), # Ensure unique
                 suggested_frameworks=list(set(suggested_frameworks)),
