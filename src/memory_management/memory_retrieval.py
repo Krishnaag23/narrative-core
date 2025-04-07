@@ -8,7 +8,7 @@ from character, plot, theme, and world memory managers.
 import logging
 from typing import List, Dict, Any
 
-from ..character_system import character_memory as CharacterMemeoryManager
+from ..character_system import character_memory as CharacterMemoryManager
 from .plot_memory_manager import PlotMemoryManager
 from .theme_memory_manager import ThemeMemoryManager
 from .world_memory_manager import WorldMemoryManager

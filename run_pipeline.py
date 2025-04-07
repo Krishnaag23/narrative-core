@@ -100,9 +100,9 @@ def get_target_episode_count(length_enum_str: str, override: Optional[int] = Non
     # Map the string value from StoryConcept back to enum if needed, or compare strings
     # Comparing string values directly for simplicity here
     length_map = {
-        StoryLength.SHORT.value: 2, # Shortened for faster demo
-        StoryLength.MEDIUM.value: 4, # Shortened for faster demo
-        StoryLength.LONG.value: 6,  # Shortened for faster demo
+        StoryLength.SHORT: 2, # Shortened for faster demo
+        StoryLength.MEDIUM: 4, # Shortened for faster demo
+        StoryLength.LONG: 6,  # Shortened for faster demo
     }
     default_count = 3 # Default if mapping fails or value is unexpected
     count = length_map.get(length_enum_str, default_count)
@@ -163,7 +163,7 @@ async def run_full_pipeline(args):
         )
         plot_arc_generator = PlotArcGenerator(llm_wrapper=llm_wrapper)
         episode_mapper = EpisodeMapper(llm_wrapper=llm_wrapper) # LLM needed for refinement
-        narrative_graph_builder = NarrativeGraphBuilder(graph_db_instance=graph_db_instance)
+        narrative_graph_builder = NarrativeGraphBuilder()
         script_builder = ScriptBuilder(llm_wrapper=llm_wrapper, character_facade=character_facade)
         qc_facade = QualityControlFacade(llm_wrapper=llm_wrapper)
         metadata_generator = MetadataGenerator(llm_wrapper=llm_wrapper)
@@ -240,8 +240,8 @@ async def run_full_pipeline(args):
         # Pydantic usually handles this during validation if Config.use_enum_values=True (default)
         story_concept = StoryConcept(
             title_suggestion=raw_input_data.get("title_suggestion"),
-            target_audience=raw_input_data.get("target_audience", TargetAudience.ADULTS.value),
-            story_length=raw_input_data.get("story_length", StoryLength.MEDIUM.value),
+            target_audience=raw_input_data.get("target_audience", TargetAudience.ADULTS),
+            story_length=raw_input_data.get("story_length", StoryLength.MEDIUM),
             initial_characters=[CharacterInput(**char_data) for char_data in characters_raw],
             initial_setting=SettingInput(
                 time_period=setting_raw.get("time_period", "Undefined"),
@@ -252,10 +252,10 @@ async def run_full_pipeline(args):
             initial_plot=PlotInput(
                 logline=plot_raw.get("logline"),
                 concept_note=concept_note, # Use the loaded concept note
-                primary_conflict=plot_raw.get("primary_conflict", ConflictType.PERSON_VS_PERSON.value),
+                primary_conflict=plot_raw.get("primary_conflict", ConflictType.PERSON_VS_PERSON),
                 major_plot_points=plot_raw.get("major_plot_points", []),
                 potential_themes=plot_raw.get("potential_themes", []),
-                desired_tone=plot_raw.get("desired_tone", StoryTone.DARK_SERIOUS.value)
+                desired_tone=plot_raw.get("desired_tone", StoryTone.DARK_SERIOUS)
             ),
             genre_analysis=genre_analysis_result,
             cultural_analysis=cultural_analysis,
@@ -287,8 +287,8 @@ async def run_full_pipeline(args):
     print("\n--- Input Processing Complete ---")
     print(f"  Title Suggestion: {story_concept.title_suggestion or 'N/A'}")
     print(f"  Primary Genre: {story_concept.genre_analysis.primary_genre[0]} (Score: {story_concept.genre_analysis.primary_genre[1]:.2f})")
-    print(f"  Target Audience: {story_concept.target_audience.value}") # Use .value for enum string
-    print(f"  Story Length: {story_concept.story_length.value}") # Use .value for enum string
+    print(f"  Target Audience: {story_concept.target_audience}") # Use .value for enum string
+    print(f"  Story Length: {story_concept.story_length}") # Use .value for enum string
     print(f"  Characters Input: {len(story_concept.initial_characters)}")
     # Cultural info printed during analysis phase above
     await save_output("1_story_concept.json", story_concept.model_dump(), is_json=True)
