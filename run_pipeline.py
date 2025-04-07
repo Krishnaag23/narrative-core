@@ -14,7 +14,7 @@ NODE_EVENT = "Event"
 NODE_EPISODE = "Episode"
 NODE_THEME = "Theme"
 NODE_OBJECT = "Object" # Added node type
-
+NODE_PLOT_POINT = "PlotPoint"
 REL_INTERACTS_WITH = "INTERACTS_WITH"
 REL_LOCATED_IN = "LOCATED_IN"
 REL_PART_OF = "PART_OF" # e.g., Event PART_OF Episode
