@@ -11,7 +11,7 @@ import logging
 from datetime import datetime, timedelta
 from typing import List, Dict, Any
 
-from .vector_store_manager import VectorStoreManager, EPISODIC_MEMORY_COLLECTION
+from .vector_store_manager import VectorStoreManager 
 from ..character_system import character_memory as CharacterMemoryManager  # For long-term transfer
 
 logger = logging.getLogger(__name__)
@@ -25,7 +25,7 @@ class EpisodicMemory:
             retention_period: Time (in hours) before memories are deleted or transferred.
         """
         self.vector_store_manager = VectorStoreManager()
-        self.collection = self.vector_store_manager.get_collection(EPISODIC_MEMORY_COLLECTION)
+        self.collection = self.vector_store_manager.get_collection("EPISODIC_MEMORY_COLLECTION")
         self.character_memory_manager = CharacterMemoryManager()
         self.retention_period = timedelta(hours=retention_period)
         
