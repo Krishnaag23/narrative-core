@@ -43,7 +43,7 @@ try:
     )
 
     # Core Components / Facades
-    from src.input_processing import process_user_input_cli, StoryConcept, StoryLength
+    from src.input_processing import process_user_input_cli, StoryConcept 
     from src.character_system import CharacterSystemFacade, CharacterProfile
     from src.memory_management import (
         HierarchicalSummarizer,
@@ -78,9 +78,9 @@ def get_target_episode_count(length_enum_str: str, override: Optional[int] = Non
     if override is not None and override > 0:
         return override
     length_map = {
-        StoryLength.SHORT.value: 2, # Shortened for faster demo
-        StoryLength.MEDIUM.value: 4, # Shortened for faster demo
-        StoryLength.LONG.value: 6,  # Shortened for faster demo
+        StoryConcept.StoryLength.SHORT.value: 2, # Shortened for faster demo
+        StoryConcept.StoryLength.MEDIUM.value: 4, # Shortened for faster demo
+        StoryConcept.StoryLength.LONG.value: 6,  # Shortened for faster demo
     }
     default_count = 3 # Default if mapping fails
     count = length_map.get(length_enum_str, default_count)
