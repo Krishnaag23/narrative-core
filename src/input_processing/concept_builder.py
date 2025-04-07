@@ -18,6 +18,7 @@ from .story_elements import (
     CulturalAnalysis, NLPExtraction, TargetAudience, StoryLength,
     CharacterRole, ConflictType, StoryTone
 )
+from ..utils.vector_store_utils import VectorStoreInterface
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +31,7 @@ class ConceptBuilder:
         self.nlp_analyzer = NlpAnalyzer()
         self.genre_classifier = GenreClassifier()
         #TODO: Pass vector store when available
-        self.cultural_detector = CulturalContextDetector(vector_store=None)
+        self.cultural_detector = CulturalContextDetector(vector_store=VectorStoreInterface())
         logger.info("ConceptBuilder initialized with analysis components.")
 
     async def build_concept_from_cli(self) -> Optional[StoryConcept]:

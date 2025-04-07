@@ -80,9 +80,10 @@ class StoryQuestionnaire:
              ).ask_async()
              input_data["metadata"] = {"input_mode": input_mode}
              # Initialize other keys expected by ConceptBuilder
-             input_data["characters"] = []
-             input_data["setting"] = {}
-             input_data["plot"] = {}
+             input_data["characters"] = await self._gather_character_info()
+             input_data["setting"] = await self._gather_setting_info()
+             input_data["plot"] = await self._gather_plot_info(genre_suggestions)
+           
         else:
             print("Error: No input method selected or no input provided. Exiting.")
             sys.exit(1)
