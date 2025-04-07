@@ -108,7 +108,7 @@ class PlotArcGenerator:
             title_suggestion=story_concept.title_suggestion,
             logline=story_concept.initial_plot.logline,
             genre=story_concept.genre_analysis.primary_genre[0],
-            audience=story_concept.target_audience.value,
+            audience=story_concept.target_audience,
             conflict=story_concept.initial_plot.primary_conflict.value,
             themes=", ".join(story_concept.initial_plot.potential_themes),
             character_summaries="\n".join(character_summaries),
