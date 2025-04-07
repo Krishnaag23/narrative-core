@@ -1,0 +1,49 @@
+{
+  "concept_note": "A weary king in ancient Ujjain is tasked by a mysterious sorcerer to retrieve a corpse hanging from a tree in a haunted forest. Inside the corpse dwells a witty, riddle-spouting spirit (Betaal). Each time the king carries the corpse, the Betaal tells a story ending in a moral dilemma. If the king answers correctly (breaking his vow of silence), the Betaal flies back. The overarching goal is to successfully transport the Betaal to the sorcerer, uncovering the sorcerer's true motive. Themes: Duty, intelligence vs. supernatural, consequences of speech. Inspired by Vikram Aur Betaal legends.",
+  "title_suggestion": "Vikram and the Voices",
+  "genre_hint": "Mythological Mystery Thriller",
+  "target_audience": "Adults",
+  "story_length": "Medium (4-10 episodes)",
+  "characters": [
+    {
+      "name": "King Vikram",
+      "role": "Protagonist",
+      "description": "Courageous, just, intelligent, and persistent king bound by duty and a vow of silence during his task. Feels the weight of his kingdom but is determined. Sometimes weary.",
+      "goals": ["Fulfill promise to sorcerer", "Solve the riddles correctly but try not to speak", "Protect kingdom", "Understand the sorcerer's true goal"],
+      "traits": ["Brave", "Intelligent", "Dutiful", "Persistent", "Noble", "Curious", "Burdened"],
+      "initial_relationships": "Respects the sorcerer but is wary. Views the Betaal as a challenge and source of wisdom/danger."
+    },
+    {
+      "name": "Betaal",
+      "role": "Antagonist",
+      "description": "Ancient, witty, possibly malevolent spirit bound to a corpse. Extremely intelligent, enjoys testing Vikram with stories and riddles. Cunning and enjoys exploiting loopholes. Knows more than he lets on.",
+      "goals": ["Test Vikram's wisdom and resolve", "Escape captivity (potentially)", "Torment or educate Vikram", "Fulfill its own unknown agenda"],
+      "traits": ["Witty", "Cunning", "Enigmatic", "Knowledgeable", "Cynical", "Playful (in a dark way)", "Ancient"],
+      "initial_relationships": "Sees Vikram as an intelligent opponent in a game. Relationship is adversarial but potentially holds respect."
+    },
+    {
+      "name": "Shantशील",
+      "role": "Supporting",
+      "description": "A powerful, reclusive sorcerer dwelling near the cremation grounds. His motives for wanting the Betaal are unclear. Appears knowledgeable but possibly manipulative.",
+      "goals": ["Obtain the Betaal for a ritual", "Gain power", "Test Vikram", "[True motive is hidden]"],
+      "traits": ["Mysterious", "Reclusive", "Powerful", "Knowledgeable", "Manipulative (potentially)", "Patient"],
+      "initial_relationships": "Tasked Vikram with the quest. Holds power over the situation initially."
+    }
+  ],
+  "setting": {
+    "time_period": "Ancient India (Mythological Era)",
+    "location": "Haunted forest near Ujjain, Cremation grounds, Royal Palace (briefly)",
+    "atmosphere": "Eerie, Mysterious, Tense, Intellectually stimulating",
+    "cultural_context_notes": "Draws heavily from Vikram and Betaal folklore, Hindu mythology concepts (karma, duty, spirits)."
+  },
+  "plot": {
+    "logline": "A duty-bound king must transport a riddle-telling spirit for a mysterious sorcerer, facing tests of wisdom and resolve with each story told.",
+    "primary_conflict": "person_vs_supernatural",
+    "major_plot_points": ["King accepts quest", "First encounter with Betaal", "First story/riddle", "Vikram breaks silence", "Betaal escapes", "Recapture Betaal", "Multiple story cycles", "Growing suspicion about sorcerer", "Final story reveals sorcerer's plot", "Confrontation with sorcerer"],
+    "potential_themes": ["Duty vs Personal desire", "Wisdom vs Intellect", "Nature of truth", "Consequences of action/speech", "Illusion vs Reality"],
+    "desired_tone": "Dark and Serious"
+  },
+   "metadata": {
+      "input_mode": "json_file"
+   }
+}
