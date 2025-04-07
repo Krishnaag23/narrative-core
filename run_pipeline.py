@@ -156,7 +156,7 @@ async def run_full_pipeline(args):
         # Facades and Managers
         character_facade = CharacterSystemFacade(llm_wrapper=llm_wrapper)
         summarizer = HierarchicalSummarizer(llm_wrapper=llm_wrapper)
-        kg_manager = KnowledgeGraphManager(graph_db_instance=graph_db_instance)
+        kg_manager = KnowledgeGraphManager()
         context_optimizer = ContextOptimizer(
             llm_wrapper=llm_wrapper, summarizer=summarizer, kg_manager=kg_manager,
             character_memory=character_facade.memory_manager
