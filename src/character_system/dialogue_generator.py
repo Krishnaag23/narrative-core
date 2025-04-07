@@ -73,7 +73,7 @@ class DialogueGenerator:
             for other_char in other_characters_in_scene:
                  rel_summary = self.relationship_manager.get_relationship_summary_for_prompt(character.character_id, other_char.character_id)
                  relationship_str += f"\n- {other_char.name}: {rel_summary}"
-
+        
         prompt = f"""
         You are roleplaying as the character: {character.name}.
 

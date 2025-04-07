@@ -23,9 +23,10 @@ class Settings(BaseSettings):
     """Application settings loaded from environment or .env file."""
     # LLM Configuration
     OPENAI_API_KEY: Optional[str] = None
-    LLM_MODEL_NAME: str = "gpt-3.5-turbo" # Default model
+    LLM_MODEL_NAME: str = "gpt-4o" # Default model
     LLM_MAX_TOKENS_DEFAULT: int = 150
     LLM_TEMPERATURE_DEFAULT: float = 0.7
+    DEMO_VERBOSE_CONTEXT: bool = True
 
     # Vector Store Configuration
     VECTOR_DB_PATH: str = DEFAULT_CHROMA_PATH
