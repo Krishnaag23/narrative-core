@@ -16,7 +16,7 @@ class CharacterState(BaseModel):
     short_term_goal: Optional[str] = Field(None, description="Immediate objective driving actions.")
     physical_condition: str = Field("Normal", description="e.g., 'Injured', 'Tired', 'Normal'.")
     last_significant_event_summary: Optional[str] = Field(None, description="Brief summary of the last major thing affecting them.")
-    last_updated: datetime = Field(default_factory=datetime.now())
+    last_updated: datetime = Field(default_factory=datetime.now)
 
 class CharacterProfile(BaseModel):
     """
@@ -47,8 +47,8 @@ class CharacterProfile(BaseModel):
 
     # --- Metadata ---
     initial_input: CharacterInput = Field(..., description="The original input data used for genesis.")
-    created_at: datetime = Field(default_factory=datetime.now())
-    last_profile_update: datetime = Field(default_factory=datetime.now())
+    created_at: datetime = Field(default_factory=datetime.now)
+    last_profile_update: datetime = Field(default_factory=datetime.now)
 
     def update_state(self, updates: Dict[str, Any]):
         """Updates the character's dynamic state."""
