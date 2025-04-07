@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Any
 
 from .vector_store_manager import VectorStoreManager, EPISODIC_MEMORY_COLLECTION
-from .character_memory_manager import CharacterMemoryManager  # For long-term transfer
+from ..character_system import character_memory as CharacterMemoryManager  # For long-term transfer
 
 logger = logging.getLogger(__name__)
 

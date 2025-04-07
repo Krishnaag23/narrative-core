@@ -12,8 +12,7 @@ logger.info("Initializing Memory Management Module...")
 # Assuming character memory is primarily handled within character_system now
 # Re-exporting for potential unified access if needed, but focus on new components here.
 # from ..character_system import CharacterMemory # If needed
-
-from .character_memory_manager import CharacterMemoryManager
+from ..character_system import character_memory as CharacterMemoryManager
 from .plot_memory_manager import PlotMemoryManager
 from .theme_memory_manager import ThemeMemoryManager
 from .world_memory_manager import WorldMemoryManager
