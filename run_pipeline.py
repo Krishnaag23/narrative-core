@@ -346,7 +346,7 @@ async def run_full_pipeline(args):
         print("  Initial graph nodes (Characters, Location, Themes) added.")
 
         print_subheader("Generating Plot Arc")
-        plot_arc_data = await plot_arc_generator.generate_arc(story_concept)
+        plot_arc_data = await plot_arc_generator.generate_plot_arc(story_concept)
         if not plot_arc_data or ("plot_arc" not in plot_arc_data and "raw_llm_output" not in plot_arc_data):
             print("  ❌ Plot arc generation failed (No LLM response or invalid data).")
             return # Cannot proceed without plot arc
