@@ -33,7 +33,7 @@ class CharacterMemory:
             llm_wrapper: An instance of the LLM wrapper for summarization.
         """
         self.vector_store_manager = VectorStoreManager()
-        self.collection = self.vector_store_manager.get_character_memory_collection()
+        self.collection = self.vector_store_manager.get_or_create_collection("character_memories")
         self.llm_wrapper = llm_wrapper 
         logger.info("CharacterMemory initialized.")
 

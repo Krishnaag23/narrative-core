@@ -17,7 +17,7 @@ class CharacterEmbedding:
     def __init__(self):
         """Initializes the embedding system with access to the vector store."""
         self.vector_store_manager = VectorStoreManager()
-        self.collection = self.vector_store_manager.get_character_embedding_collection()
+        self.collection = self.vector_store_manager.get_or_create_collection("character_aspects")
         
 
     def add_or_update_character_aspects(self, character: CharacterProfile):

@@ -2,3 +2,4 @@ venv/
 .env
 db/
 .chroma_db_persistence
+.chrome_db_persistance

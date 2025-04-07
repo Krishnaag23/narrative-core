@@ -39,7 +39,7 @@ class CharacterGenesis:
 
         goals_str = ",".join(initial_input.goals) if initial_input.goals else "None Specified"
         traits_str = ",".join(initial_input.traits) if initial_input.traits else "None Specified"
-        prompt = PromptManager.get_prompt("character_genesis_expand",initial_input.name,initial_input.role,initial_input.description,goals_str,traits_str,initial_input.initial_relationships,story_ctx_str)
+        prompt = PromptManager.get_prompt("character_genesis_expand",initial_input)
         try:
             logger.info(f"Generating detailed profile for {initial_input.name} using LLM...")
             response = await self.llm_wrapper.query_llm_async(prompt, max_tokens=800) # Allow ample tokens

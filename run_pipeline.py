@@ -136,7 +136,7 @@ async def run_full_pipeline(args):
         )
         plot_arc_generator = PlotArcGenerator(llm_wrapper=llm_wrapper)
         episode_mapper = EpisodeMapper(llm_wrapper=llm_wrapper) # LLM needed for refinement
-        narrative_graph_builder = NarrativeGraphBuilder(graph_db_instance=graph_db_instance)
+        narrative_graph_builder = NarrativeGraphBuilder()
         # Scene constructor now within ScriptBuilder
         script_builder = ScriptBuilder(llm_wrapper=llm_wrapper, character_facade=character_facade)
         qc_facade = QualityControlFacade(llm_wrapper=llm_wrapper)

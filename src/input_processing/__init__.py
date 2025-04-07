@@ -25,7 +25,7 @@ async def process_user_input_cli() -> Optional[StoryConcept]:
     """
     logger.info("Starting user input processing via CLI...")
     builder = ConceptBuilder()
-    story_concept = builder.build_concept_from_cli()
+    story_concept = await builder.build_concept_from_cli()
 
     if story_concept:
         logger.info("Successfully generated Story Concept.")

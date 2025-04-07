@@ -14,8 +14,8 @@ class VectorStoreManager (VectorStoreInterface):
 
     def __init__(self):
         super().__init__()
-        self.get_or_create_collection(CHARACTER_EMBEDDINGS_COLLECTION)
-        self.get_or_create_collection(CHARACTER_MEMORIES_COLLECTION)
+        self.get_character_embedding_collection()
+        self.get_character_memory_collection()
 
     def get_character_embedding_collection(self):
         """Convenience method to get the character aspects collection."""
