@@ -338,7 +338,7 @@ async def run_full_pipeline(args):
     print_header("Stage 3: Story Blueprint (Arc, Mapping, Graph)")
     plot_arc_data: Optional[Dict[str, Any]] = None
     episode_outlines: List[Dict[str, Any]] = []
-    target_ep_count = get_target_episode_count(story_concept.story_length.value, args.episodes)
+    target_ep_count = get_target_episode_count(story_concept.story_length, args.episodes)
 
     try:
         print_subheader("Building Initial Knowledge Graph")
