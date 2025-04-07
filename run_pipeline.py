@@ -171,8 +171,8 @@ async def run_full_pipeline(args):
     print("\n--- Input Processing Complete ---")
     print(f"  Title Suggestion: {story_concept.title_suggestion or 'N/A'}")
     print(f"  Primary Genre: {story_concept.genre_analysis.primary_genre[0]} (Score: {story_concept.genre_analysis.primary_genre[1]:.2f})")
-    print(f"  Target Audience: {story_concept.target_audience.value}")
-    print(f"  Story Length: {story_concept.story_length.value}")
+    print(f"  Target Audience: {story_concept.target_audience}")
+    print(f"  Story Length: {story_concept.story_length}")
     print(f"  Characters Input: {len(story_concept.initial_characters)}")
     print(f"  Cultural Keywords (Keywords+RAG): {story_concept.cultural_analysis.detected_keywords or 'None'}")
     print(f"  Cultural Frameworks Suggested: {story_concept.cultural_analysis.suggested_frameworks or 'None'}")
@@ -228,7 +228,7 @@ async def run_full_pipeline(args):
     print_header("Stage 3: Story Blueprint (Arc, Mapping, Graph)")
     plot_arc_data: Optional[Dict[str, Any]] = None
     episode_outlines: List[Dict[str, Any]] = []
-    target_ep_count = get_target_episode_count(story_concept.story_length.value, args.episodes)
+    target_ep_count = get_target_episode_count(story_concept.story_length, args.episodes)
 
     try:
         print_subheader("Building Initial Knowledge Graph")
@@ -391,7 +391,7 @@ async def run_full_pipeline(args):
              if quality_report.issues:
                   print("  Issues:")
                   for issue in quality_report.issues[:5]: # Print top 5 issues
-                       print(f"    - [{issue.severity.value} / {issue.checker} / {issue.check_type}] {issue.description} (Loc: {issue.location or 'N/A'})")
+                       print(f"    - [{issue.severity} / {issue.checker} / {issue.check_type}] {issue.description} (Loc: {issue.location or 'N/A'})")
                   if len(quality_report.issues) > 5: print("      ...")
              await save_output("5_quality_report.json", quality_report.model_dump(), is_json=True)
              print("  (Full quality report saved to pipeline_output/5_quality_report.json)")
