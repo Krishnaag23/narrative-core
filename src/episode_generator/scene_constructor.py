@@ -36,7 +36,7 @@ class SceneConstructor:
         else:
             return self._construct_default_scene(scene_outline, characters, pacing)
     
-    def _construct_scene_with_llm(self, 
+    async def _construct_scene_with_llm(self, 
                                scene_outline: Dict, 
                                characters: Dict,
                                episode_context: Dict,
@@ -46,7 +46,7 @@ class SceneConstructor:
         prompt = self._create_scene_construction_prompt(scene_outline, characters, episode_context, pacing)
         
         # Generate scene with LLM
-        response = self.llm_wrapper.query_llm_sync(prompt)
+        response = await self.llm_wrapper.query_llm_async(prompt)
         
         # Parse the response
         try:

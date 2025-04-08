@@ -131,7 +131,7 @@ class EpisodeMapper:
                 episode_number, plot_points, should_have_cliffhanger
             )
     
-    def _generate_episode_with_llm(self, 
+    async def _generate_episode_with_llm(self, 
                                 episode_number: int, 
                                 plot_points: List[Dict],
                                 plot_arc: Dict,
@@ -143,7 +143,7 @@ class EpisodeMapper:
         )
         
         # Generate episode with LLM
-        response = self.llm_wrapper.query_llm_sync(prompt)
+        response = await self.llm_wrapper.query_llm_async(prompt)
         
         # Parse the response (assuming JSON format)
         try:
