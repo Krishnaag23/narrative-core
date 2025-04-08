@@ -59,13 +59,13 @@ class SceneConstructor:
     
     def _create_scene_construction_prompt(self, 
                                        scene_outline: Dict, 
-                                       characters: Dict,
+                                       characters: List,
                                        episode_context: Dict,
                                        pacing: str) -> str:
         """Create a prompt for scene construction."""
         # Format character information
         character_info = ""
-        for char_name, char_data in characters.items():
+        for char_name, char_data in characters:
             if char_name in scene_outline.get('characters', []):
                 char_info = f"""
                 {char_name}:

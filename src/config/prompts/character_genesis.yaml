@@ -22,7 +22,7 @@ character_genesis_expand: |
   8.  Mannerisms: (List 2-3 distinctive habits or gestures)
   9.  Voice Description: (Describe tone, pitch, accent, common phrases/patterns)
 
-  This is really important that you must generate all the points exhaustively and correctly and return the output in JSON without any markdown format.
+  This is really important that you must generate all the points exhaustively and correctly and return the output in the below format directly without any markdown format.
   Output Format (Use these exact headings and format):
   Backstory: [Generated Backstory]
   Core Traits: [Trait 1, Trait 2, ...]
