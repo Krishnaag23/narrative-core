@@ -18,9 +18,9 @@ generate_plot_arc_points: |
 
   Desired Output Format (JSON):
   {{
-    "title": "{title_suggestion or 'Generated Title'}",
-    "logline": "{logline or 'Generated Logline'}",
-    "genre": "{genre}",
+    "title": title_suggestion or 'Generated Title',
+    "logline": logline or 'Generated Logline',
+    "genre": genre,
     "plot_arc": [
       {{
         "stage_name": "Stage 1 Name",
@@ -48,5 +48,5 @@ generate_plot_arc_points: |
       // ... for all stages in the structure
     ]
   }}
-
+  This is important, Make sure you generate all the fields correctly.
   Generate the JSON output:
