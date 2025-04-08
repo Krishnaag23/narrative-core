@@ -61,7 +61,7 @@ class ScriptBuilder:
             # Construct Scene Base (Setting, Actions, Dialogue Placeholders/Directions)
             constructed_scene_base = await self.scene_constructor.construct_scene(
                 scene_outline=scene_objective,
-                characters=chars_in_scene_profiles,
+                characters=character_profiles.values(),
                 episode_context=episode_outline,
                 # TODO: Get tone from story concept or episode outline
                 pacing=episode_outline.get("tone", "Neutral")
