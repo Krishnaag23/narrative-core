@@ -19,7 +19,7 @@ class EpisodeMapper:
         """
         self.llm_wrapper = llm_wrapper
     
-    def map_to_episodes(self, 
+    async def map_to_episodes(self, 
                         plot_arc: Dict, 
                         episode_count: Optional[int] = None,
                         min_episodes: int = 5,
@@ -58,7 +58,7 @@ class EpisodeMapper:
                 cliffhanger_frequency > 0.5 or i % 2 == 0  # Simple pattern for cliffhangers
             )
             
-            episode = self._create_episode_outline(
+            episode = await self._create_episode_outline(
                 i + 1, points, plot_arc, should_have_cliffhanger
             )
             episodes.append(episode)
@@ -114,7 +114,7 @@ class EpisodeMapper:
                     
         return episode_plot_points
     
-    def _create_episode_outline(self, 
+    async def _create_episode_outline(self, 
                               episode_number: int, 
                               plot_points: List[Dict], 
                               plot_arc: Dict,
@@ -122,7 +122,7 @@ class EpisodeMapper:
         """Create an outline for a single episode."""
         if self.llm_wrapper:
             # Use LLM to create detailed episode outline
-            return self._generate_episode_with_llm(
+            return await self._generate_episode_with_llm(
                 episode_number, plot_points, plot_arc, should_have_cliffhanger
             )
         else:

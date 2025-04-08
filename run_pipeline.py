@@ -367,7 +367,7 @@ async def run_full_pipeline(args):
 
         print_subheader("Mapping Arc to Episodes")
         # Ensure episode_mapper gets initialized PlotArcGenerator, if needed
-        episode_outlines = episode_mapper.map_to_episodes(plot_arc_data, target_ep_count)
+        episode_outlines = await episode_mapper.map_to_episodes(plot_arc_data, target_ep_count)
         if not episode_outlines:
              print("  ❌ Episode mapping failed.")
              return
