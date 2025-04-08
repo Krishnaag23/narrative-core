@@ -48,5 +48,5 @@ generate_plot_arc_points: |
       // ... for all stages in the structure
     ]
   }}
-  This is important, Make sure you generate all the fields correctly.
+  This is important, Make sure you generate all the fields correctly. Directly return JSON without any markdown format or anything:
   Generate the JSON output:
