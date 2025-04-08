@@ -342,7 +342,7 @@ async def run_full_pipeline(args):
 
     try:
         print_subheader("Building Initial Knowledge Graph")
-        narrative_graph_builder
+        narrative_graph_builder.build_initial_graph(story_concept)
         print("  Initial graph nodes (Characters, Location, Themes) added.")
 
         print_subheader("Generating Plot Arc")
