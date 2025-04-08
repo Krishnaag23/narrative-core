@@ -123,7 +123,7 @@ class PlotArcGenerator:
             return None
 
         try:
-            response = await self.llm.query_llm_async(prompt, max_tokens=20000, temperature=0.7)
+            response = await self.llm_wrapper.query_llm_async(prompt, max_tokens=20000, temperature=0.7)
 
             if not response:
                 logger.error("LLM did not return a response for plot arc generation.")
