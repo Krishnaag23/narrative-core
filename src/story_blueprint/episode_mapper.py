@@ -143,7 +143,7 @@ class EpisodeMapper:
         )
         
         # Generate episode with LLM
-        response = self.llm_wrapper.generate(prompt)
+        response = self.llm_wrapper.query_llm_sync(prompt)
         
         # Parse the response (assuming JSON format)
         try:

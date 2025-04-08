@@ -1,9 +1,11 @@
 from typing import Dict, List, Optional, Tuple
+from ..utils import LLMwrapper
+import json
 
 class SceneConstructor:
     """Constructs well-paced scenes with dramatic structure."""
     
-    def __init__(self, llm_wrapper=None):
+    def __init__(self, llm_wrapper=LLMwrapper):
         """
         Initialize the SceneConstructor.
         
@@ -44,7 +46,7 @@ class SceneConstructor:
         prompt = self._create_scene_construction_prompt(scene_outline, characters, episode_context, pacing)
         
         # Generate scene with LLM
-        response = self.llm_wrapper.generate(prompt)
+        response = self.llm_wrapper.query_llm_sync(prompt)
         
         # Parse the response
         try:
