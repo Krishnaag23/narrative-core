@@ -367,7 +367,7 @@ async def run_full_pipeline(args):
 
         print_subheader("Mapping Arc to Episodes")
         # Ensure episode_mapper gets initialized PlotArcGenerator, if needed
-        episode_outlines = episode_mapper.map_plot_to_episodes(plot_arc_data, target_ep_count)
+        episode_outlines = episode_mapper.map_to_episodes(plot_arc_data, target_ep_count)
         if not episode_outlines:
              print("  ❌ Episode mapping failed.")
              return
@@ -382,7 +382,7 @@ async def run_full_pipeline(args):
         print_subheader("Visualizing Knowledge Graph (Attempt)")
         try:
              graph_obj = narrative_graph_builder.get_graph()
-             if graph_obj and graph_obj.number_of_nodes() > 0:
+             if graph_obj: 
                   import matplotlib.pyplot as plt
                   import networkx as nx
                   plt.figure(figsize=(15, 10))
@@ -437,7 +437,7 @@ async def run_full_pipeline(args):
         print_subheader(f"Generating Episode {ep_num}")
         try:
             # Note: ScriptBuilder internally calls SceneConstructor and DialogueGenerator
-            final_script = await script_builder.build_episode_script(
+            final_script = await script_builder.build_script(
                 episode_outline=outline,
                 character_profiles=generated_profiles_dict # Pass name->profile map
             )
