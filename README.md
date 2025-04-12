@@ -154,7 +154,7 @@ Detailed documentation for specific components and architecture can be found in 
 *   `docs/components/`: Documentation for utility modules.
 *   `docs/character_system.md`: Overview of the character system.
 
-## 🛣️ Future Work (Potential)
+## 🛣️ Potential Future Improvements
 
 *   Integration with fine-tuned models for specific styles/genres.
 *   More sophisticated Knowledge Graph reasoning.
@@ -164,10 +164,6 @@ Detailed documentation for specific components and architecture can be found in 
 *   More robust testing suite.
 
 
-
-## 📜 License
-
-This project is licensed under the MIT License - see the [LICENSE](license.md) file for details. 
 
 ##  Acknowledgements
 
