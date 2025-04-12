@@ -169,7 +169,7 @@ Detailed documentation for specific components and architecture can be found in 
 
 ## 📜 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 
+This project is licensed under the MIT License - see the [LICENSE](license.md) file for details. 
 
 ## 🙏 Acknowledgements
 
