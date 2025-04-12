@@ -2,7 +2,7 @@
 
 **Transforming ideas into rich, coherent, and culturally resonant multi-episode narratives using AI.**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](license)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](license.md)
 ---
 
 In a world demanding ever more engaging and immersive content, **Narrative-Core** stands as a revolutionary AI-driven storytelling system. It tackles the core challenges of AI narrative generation – maintaining coherence over long arcs, ensuring character consistency, managing complex context, and weaving in authentic cultural nuances.
