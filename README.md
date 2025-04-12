@@ -54,8 +54,6 @@ graph LR
     H --> I(Quality Control: Coherence & Cultural Checks);
     I --> J(Output Formatting: Script, SSML, Metadata);
 
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style J fill:#ccf,stroke:#333,stroke-width:2px
 ```
 
 *(See `docs/architecture/Repository.md` and `run_pipeline.py` for more details)*
