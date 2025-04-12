@@ -169,10 +169,9 @@ Detailed documentation for specific components and architecture can be found in 
 
 This project is licensed under the MIT License - see the [LICENSE](license.md) file for details. 
 
-## 🙏 Acknowledgements
+##  Acknowledgements
 
-*   Developed by [Vaibhav Gupta](https://github.com/kvaibhav23/), [Vaibhav Itauriya](https://github.com/vaibhav-itauriya), [Krishna Agrawal](https://github.com/krishnaag23/).
-*   Utilizes the power of OpenAI's language models.
-*   Leverages fantastic open-source libraries like ChromaDB, Hugging Face Transformers, spaCy, Pydantic, and NetworkX.
+>Developed by [Vaibhav Gupta](https://github.com/kvaibhav23/), [Vaibhav Itauriya](https://github.com/vaibhav-itauriya), [Krishna Agrawal](https://github.com/krishnaag23/).
+
 
 ---
